@@ -19,7 +19,8 @@ const clearButton = document.querySelector("#clear-todos");
 eventListener();
 
 function eventListener() {
-  // Bu fonsiyonun görevi bütün event listenerları atamak
+  
+  // purpose of this function is to assign listeners to all events
   form.addEventListener("submit", addtodo);
 }
 
@@ -32,23 +33,23 @@ function addtodo(e) {
 function addtodoToUI(newTodo) {
   // add the String value to the UI as list item
 
-  // List item oluşturma
+  // crating a list item
   const listItem = document.createElement("li");
   
-  // Link Oluşturma
+  // Creating a link element
   const link = document.createElement("a");
   link.href = "#";
   link.className = "delete-item";
   link.innerHTML = "<i class = 'fa fa - remove'></i>";
 
-  // class ekleme
+  // Adding class
   listItem.className = "list-group-item d-flex justify-content-between";
 
-  // text Node ekleme
+  // Adding text Node
   listItem.appendChild(document.createTextNode(newTodo));
   listItem.appendChild(link);
 
-  // todolist'e listItem'ı ekleme
+  // adding listItem to todolist
   todolist.appendChild(listItem);
   todoInput.value = "";
 }
