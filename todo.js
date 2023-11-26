@@ -36,7 +36,7 @@ function addtodo(e) {
   e.preventDefault();
 }
 
-function getTodosfronStorage() {
+function getTodosfromStorage() {
   //For get todos from storage
   let todos;
   if (localStorage.getItem("todos") === null) {
@@ -48,7 +48,7 @@ function getTodosfronStorage() {
 }
 
 function addTodoToStorage(newTodo) {
-  let todos = getTodosfronStorage();
+  let todos = getTodosfromStorage();
   todos.push(newTodo);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
