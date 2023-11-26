@@ -26,12 +26,10 @@ function eventListener() {
 function addtodo(e) {
   const newTodo = todoInput.value.trim();
   if (newTodo === "") {
-    /* <div class="alert alert-danger" role="alert">
-  This is a danger alert—check it out!
-</div>
-*/
     showAlert("danger", "Lütfen bir todo girin...");
-  } else {
+  } 
+  
+  else {
     addtodoToUI(newTodo);
     showAlert("success", "Todo başarıyla eklendi...");
   }
