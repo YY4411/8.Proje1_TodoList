@@ -30,7 +30,7 @@ function addtodo(e) {
 }
 
 function addtodoToUI(newTodo) {
-  // String değerini list item olarak UI'ya ekleyecek
+  // add the String value to the UI as list item
 
   // List item oluşturma
   const listItem = document.createElement("li");
