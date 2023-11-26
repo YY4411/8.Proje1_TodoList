@@ -18,24 +18,46 @@ const clearButton = document.querySelector("#clear-todos");
 
 eventListener();
 
+// purpose of this function is to assign listeners to all events
 function eventListener() {
-  
-  // purpose of this function is to assign listeners to all events
   form.addEventListener("submit", addtodo);
 }
 
 function addtodo(e) {
   const newTodo = todoInput.value.trim();
-  addtodoToUI(newTodo);
+  if (newTodo === "") {
+    /* <div class="alert alert-danger" role="alert">
+  This is a danger alert—check it out!
+</div>
+*/
+    showAlert("danger", "Lütfen bir todo girin...");
+  } else {
+    addtodoToUI(newTodo);
+    showAlert("success", "Todo başarıyla eklendi...");
+  }
   e.preventDefault();
+}
+
+function showAlert(type, message) {
+  const alert = document.createElement("div");
+  alert.className = `alert alert-${type}`;
+  alert.textContent = message;
+  firstcardBody.appendChild(alert);
+
+  // SetTimeout
+  setTimeout(function () {
+    alert.remove();
+  }, 1000);
+
+  // console.log(alert);
 }
 
 function addtodoToUI(newTodo) {
   // add the String value to the UI as list item
 
-  // crating a list item
+  // creating a list item
   const listItem = document.createElement("li");
-  
+
   // Creating a link element
   const link = document.createElement("a");
   link.href = "#";
