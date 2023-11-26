@@ -34,6 +34,7 @@ function addtodoToUI(newTodo) {
 
   // List item oluşturma
   const listItem = document.createElement("li");
+  
   // Link Oluşturma
   const link = document.createElement("a");
   link.href = "#";
