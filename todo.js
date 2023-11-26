@@ -27,13 +27,30 @@ function addtodo(e) {
   const newTodo = todoInput.value.trim();
   if (newTodo === "") {
     showAlert("danger", "Lütfen bir todo girin...");
-  } 
-  
-  else {
+  } else {
     addtodoToUI(newTodo);
+    addTodoToStorage(newTodo);
+
     showAlert("success", "Todo başarıyla eklendi...");
   }
   e.preventDefault();
+}
+
+function getTodosfronStorage() {
+  //For get todos from storage
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  return todos;
+}
+
+function addTodoToStorage(newTodo) {
+  let todos = getTodosfronStorage();
+  todos.push(newTodo);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function showAlert(type, message) {
