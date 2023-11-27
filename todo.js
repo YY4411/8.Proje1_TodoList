@@ -10,7 +10,7 @@ const clearButton = document.querySelector("#clear-todos");
 
 // console.log(form);
 // console.log(todoInput);
-// console.log("todoList");
+// console.log(todolist);
 // console.log(firstcardBody);
 // console.log(secondcardBody);
 // console.log(filter);
@@ -20,15 +20,32 @@ eventListener();
 
 // purpose of this function is to assign listeners to all events
 function eventListener() {
-  form.addEventListener("submit", addtodo);
+  form.addEventListener("submit", addTodo);
+  document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
+  secondcardBody.addEventListener("click", deleteTodo);
 }
 
-function addtodo(e) {
+function deleteTodo(e) {
+  if (e.target.className === "fa fa-remove") {
+    e.target.parentElement.parentElement.remove();
+    showAlert("success", "Todo başarıyla silindi...");
+    // console.log("Silme işlemi");
+  }
+}
+
+function loadAllTodosToUI() {
+  let todos = getTodosfromStorage();
+  todos.forEach(function (todo) {
+    addTodoToUI(todo);
+  });
+}
+
+function addTodo(e) {
   const newTodo = todoInput.value.trim();
   if (newTodo === "") {
     showAlert("danger", "Lütfen bir todo girin...");
   } else {
-    addtodoToUI(newTodo);
+    addTodoToUI(newTodo);
     addTodoToStorage(newTodo);
 
     showAlert("success", "Todo başarıyla eklendi...");
@@ -67,17 +84,17 @@ function showAlert(type, message) {
   // console.log(alert);
 }
 
-function addtodoToUI(newTodo) {
+function addTodoToUI(newTodo) {
   // add the String value to the UI as list item
 
   // creating a list item
   const listItem = document.createElement("li");
 
-  // Creating a link element
+  // Creating link element
   const link = document.createElement("a");
   link.href = "#";
   link.className = "delete-item";
-  link.innerHTML = "<i class = 'fa fa - remove'></i>";
+  link.innerHTML = "<i class = `fa fa-remove`></i>";
 
   // Adding class
   listItem.className = "list-group-item d-flex justify-content-between";
