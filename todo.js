@@ -2,7 +2,7 @@
 
 const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo");
-const todolist = document.querySelector(".list-group");
+const todoList = document.querySelector(".list-group");
 const firstcardBody = document.querySelectorAll(".card-body")[0];
 const secondcardBody = document.querySelectorAll(".card-body")[1];
 const filter = document.querySelector("#filter");
@@ -10,7 +10,7 @@ const clearButton = document.querySelector("#clear-todos");
 
 // console.log(form);
 // console.log(todoInput);
-// console.log(todolist);
+// console.log(todoList);
 // console.log(firstcardBody);
 // console.log(secondcardBody);
 // console.log(filter);
@@ -23,14 +23,41 @@ function eventListener() {
   form.addEventListener("submit", addTodo);
   document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
   secondcardBody.addEventListener("click", deleteTodo);
+  filter.addEventListener("keyup", filterTodos);
+}
+
+function filterTodos(e) {
+  // console.log(e.target.value);
+  const filterValue = e.target.value.toLowerCase();
+  const listItems = document.querySelectorAll(".list-group-item");
+  listItems.forEach(function (listItem) {
+    const text = listItem.textContent.toLowerCase();
+    if (text.indexOf(filterValue) === -1) {
+      // Bulamadı
+      listItem.setAttribute("style", "display:none !important");
+    } else {
+      listItem.setAttribute("style", "display:block");
+    }
+  });
 }
 
 function deleteTodo(e) {
   if (e.target.className === "fa fa-remove") {
     e.target.parentElement.parentElement.remove();
+    deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
     showAlert("success", "Todo başarıyla silindi...");
     // console.log("Silme işlemi");
   }
+}
+
+function deleteTodoFromStorage(deletetodo) {
+  let todos = getTodosfromStorage();
+  todos.forEach(function (todo, index) {
+    if (todo === deletetodo) {
+      todos.splice(index, 1); //Arrayden değerimizi silebiliriz.
+    }
+  });
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
 function loadAllTodosToUI() {
@@ -94,7 +121,7 @@ function addTodoToUI(newTodo) {
   const link = document.createElement("a");
   link.href = "#";
   link.className = "delete-item";
-  link.innerHTML = "<i class = `fa fa-remove`></i>";
+  link.innerHTML = "<i class = 'fa fa-remove'></i>";
 
   // Adding class
   listItem.className = "list-group-item d-flex justify-content-between";
@@ -103,7 +130,7 @@ function addTodoToUI(newTodo) {
   listItem.appendChild(document.createTextNode(newTodo));
   listItem.appendChild(link);
 
-  // adding listItem to todolist
-  todolist.appendChild(listItem);
+  // adding listItem to todoList
+  todoList.appendChild(listItem);
   todoInput.value = "";
 }
