@@ -24,6 +24,18 @@ function eventListener() {
   document.addEventListener("DOMContentLoaded", loadAllTodosToUI);
   secondcardBody.addEventListener("click", deleteTodo);
   filter.addEventListener("keyup", filterTodos);
+  clearButton.addEventListener("click", clearAllTodos);
+}
+
+function clearAllTodos(e) {
+  if (confirm("Tümünü silmek istediğinize emin misiniz?")) {
+    // Arayüzden todoları temizleme
+    // todoList.innerHTML = ""; // Yavaş kalıyor
+    while (todoList.firstElementChild != null) {
+      todoList.removeChild(todoList.firstElementChild);
+    }
+    localStorage.removeItem("todos");
+  }
 }
 
 function filterTodos(e) {
